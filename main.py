@@ -3,9 +3,18 @@ from hoover import Hoover
 from trash import Trash
 import threading
 import time
+import sys
 
+if len(sys.argv) > 1:
+    parametro = sys.argv[1]
+    print(f"Mode Intelligent Actived: {parametro}")
+else:
+    print("Mode Stupid Actived")
+    parametro = '0'
+
+step = int(parametro)
 quadrantA = Quadrant(5, 5)
-hoover = Hoover(0, 0)
+hoover = Hoover(step)
 trash = None
 
 

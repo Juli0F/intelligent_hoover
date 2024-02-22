@@ -1,0 +1,45 @@
+@startuml
+
+class Hoover {
+    - pos_x: int
+    - pos_y: int
+    - radio: int
+    - symbol: string
+    - color: string
+    - amount_trash: int
+    - moving_right: boolean
+    + left_move(): void
+    + right_move(): void
+    + up_move(): void
+    + down_move(): void
+    + search_and_move(quadrant: Quadrant): void
+}
+
+class Quadrant {
+    - size_x: int
+    - size_y: int
+    - squares: Square[][]
+    + add_trash(trash: Trash): void
+    + show_square(hoover: Hoover): void
+    + check_trash(x: int, y: int): boolean
+    + clean_square(x: int, y: int): void
+}
+
+class Square {
+    - pos_x: int
+    - pos_y: int
+    - symbol: string
+    - trash: Trash
+}
+
+class Trash {
+    - pos_x: int
+    - pos_y: int
+    - symbol: string
+}
+
+Hoover -- Quadrant : usa
+Quadrant -- Square : contiene
+Square -- Trash : "0..1"
+
+@enduml
