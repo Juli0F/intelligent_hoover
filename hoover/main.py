@@ -13,7 +13,7 @@ else:
     parametro = '0'
 
 step = int(parametro)
-quadrantA = Quadrant(5, 5)
+quadrantA = Quadrant(2, 2)
 hoover = Hoover(step)
 trash = None
 
