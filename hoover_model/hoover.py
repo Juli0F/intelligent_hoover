@@ -55,6 +55,9 @@ class Aspiradora:
             elif accion == 'esperar':
                 print(acciones['esperar'])
                 time.sleep(5)
+            elif accion == 'Otro Cuadrante':
+                print(acciones['Otro Cuadrante'])
+                self.mover()
             self.estado = actualizar_estado(self.estado, accion, percepcion, self.posicion)
 
 def manejar_entrada_usuario(aspiradora):
