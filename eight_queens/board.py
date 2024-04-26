@@ -17,31 +17,34 @@ def funcion_de_aptitud(cromosoma):
 def seleccion(poblacion):
     seleccionados = []
     aptitudes = [funcion_de_aptitud(cromosoma) for cromosoma in poblacion]
+    print("Aptitudes: ", aptitudes)
     aptitud_total = sum(aptitudes)
     probabilidades = [aptitud / aptitud_total for aptitud in aptitudes]
+    print("Probabilidades: ", probabilidades)
     for _ in range(len(poblacion)):
         seleccionados.append(random.choices(poblacion, weights=probabilidades)[0])
     return seleccionados
 
 def cruzamiento(padre1, padre2):
     hijo1, hijo2 = padre1[:], padre2[:]
-    punto_cruce = random.randint(1, 6)
+    punto_cruce = random.randint(1, 8)
+
     segmento_hijo1 = padre2[punto_cruce:punto_cruce+2]
     segmento_hijo2 = padre1[punto_cruce:punto_cruce+2]
-
+    print("Punto de cruce:", punto_cruce, "Segemento 1: ",len(segmento_hijo1),segmento_hijo1, "Segemento 2: ",len(segmento_hijo2), segmento_hijo2)
 
     hijo1 = [x for x in hijo1 if x not in segmento_hijo1]
     hijo2 = [x for x in hijo2 if x not in segmento_hijo2]
-
+    print("Hijo 1", hijo1, "Hijo 2", hijo2)
     hijo1[punto_cruce:punto_cruce] = segmento_hijo1
     hijo2[punto_cruce:punto_cruce] = segmento_hijo2
 
-
+    print("Nueva generacion: ",[hijo1, hijo2])
     return [hijo1, hijo2]
 
 def reemplazo(poblacion, nueva_poblacion):
-    poblacion.sort(key=funcion_de_aptitud, reverse=True)
-    nueva_poblacion.sort(key=funcion_de_aptitud, reverse=True)
+    poblacion.sort(key=funcion_de_aptitud)
+    nueva_poblacion.sort(key=funcion_de_aptitud)
     return nueva_poblacion[:len(poblacion)]
 
 def algoritmo_genetico(tamanio_poblacion, generaciones):
@@ -51,7 +54,7 @@ def algoritmo_genetico(tamanio_poblacion, generaciones):
     for generacion in range(generaciones):
         seleccionados = seleccion(poblacion)
         nueva_poblacion = []
-        for i in range(0, len(seleccionados), 2):
+        for i in range(0,len(seleccionados),2):
             padre1, padre2 = seleccionados[i], seleccionados[i + 1]
             nueva_poblacion.extend(cruzamiento(padre1, padre2))
         poblacion = reemplazo(poblacion, nueva_poblacion)
@@ -86,6 +89,6 @@ def graficar_solucion(solucion):
 
 
 solucion = algoritmo_genetico(100, 1000)
-print("Solución encontrada:", solucion)
+print("\n\nSolución encontrada:", solucion)
 print("Aptitud de la solución:", funcion_de_aptitud(solucion))
 graficar_solucion(solucion)
